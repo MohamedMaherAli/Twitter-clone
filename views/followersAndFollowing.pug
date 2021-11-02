@@ -1,0 +1,15 @@
+extends layouts\main-layout.pug
+
+block content 
+    if !profileUser
+        span.errorMessage The url you are trying to reach is not found.
+    else 
+        script. 
+            var profileUserId = '!{profileUser._id}';   
+            var selectedTab =  '!{selectedTab}';
+        .tabsContainer 
+            +createTab("following", `/profile/${profileUser.username}/following`, selectedTab !== "followers")
+            +createTab("followers", `/profile/${profileUser.username}/followers`, selectedTab === "followers")                 
+        .resultsContainer
+block scripts 
+    script(src="/js/followersAndFollowing.js")         
